@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { Flight } from '../entities/flight';
 import { Http, URLSearchParams, Headers } from '@angular/http';
+import { FlightService } from './flight.service';
 
 @Component({
   selector: 'flight-search',
-  templateUrl: './flight-search.component.html'
+  templateUrl: './flight-search.component.html',
+  providers: [FlightService]
 })
 export class FlightSearchComponent {
 
@@ -14,27 +16,17 @@ export class FlightSearchComponent {
   selectedFlight: Flight;
 
   //private http: Http;
-  constructor(private http: Http) {
-    //this.http = http;
+  constructor(private flightService: FlightService) {
+    console.debug('Liebsgrüße aus dem Konstruktor!');
   }
 
   search(): void {
 
-    let url = 'http://www.angular.at/api/flight';
-
-    let search = new URLSearchParams();
-    search.set('from', this.from);
-    search.set('to', this.to);
-
-    let headers = new Headers();
-    headers.set('Accept', 'application/json');
-
-    this
-      .http
-      .get(url, { search, headers})
+    this.flightService
+      .find(this.from, this.to)
       .subscribe(
-        (resp) => {
-          this.flights = resp.json();
+        (flights) => {
+          this.flights = flights;
         },
         (errResp) => {
           console.error('Fehler beim Laden', errResp);
