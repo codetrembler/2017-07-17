@@ -1,6 +1,6 @@
 <h1>Flight Search!</h1>
 
-<div class="card">
+<div class="row card">
   <div class="control-group">
     <label>From:</label>
     <input [(ngModel)]="from" class="form-control">
@@ -16,6 +16,18 @@
   </div>
 </div>
 
+<div class="row">
+<div *ngFor="let f of flights" class="col col-lg-3 col-md-4 col-sm-6 col-xs-12">
+  <flight-card
+    [(selected)]="basket[f.id]"
+    [item]="f">
+  </flight-card>
+</div>
+</div>
+<!--
+(selectedChange)="basket[f.id] = $event"
+-->
+<!--
 <div *ngIf="flights.length > 0" class="card">
   <table class="table table-contensed">
     <tr *ngFor="let f of flights" [ngClass]="{ 'active': f === selectedFlight }">
@@ -27,7 +39,8 @@
     </tr>
   </table>
 </div>
+-->
 
-<div class="card">
-  <pre>{{ selectedFlight | json }}</pre>
+<div class="row card">
+  <pre>{{ basket | json }}</pre>
 </div>

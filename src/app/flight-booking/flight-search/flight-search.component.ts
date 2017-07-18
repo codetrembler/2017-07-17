@@ -15,6 +15,12 @@ export class FlightSearchComponent {
   flights: Array<Flight> = [];
   selectedFlight: Flight;
 
+  basket: object = {
+    "3": true,
+    "4": false,
+    "5": true
+  };
+
   //private http: Http;
   constructor(private flightService: FlightService) {
     console.debug('Liebsgrüße aus dem Konstruktor!');
