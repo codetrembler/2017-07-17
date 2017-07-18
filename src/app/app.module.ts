@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { FlightSearchComponent } from './flight-search/flight-search.component';
 import { FlightService } from './flight-search/flight.service';
 import { BASE_URL } from './app.tokens';
+import { CityPipe } from './shared/pipes/city.pipe';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { BASE_URL } from './app.tokens';
   ],
   declarations: [
     AppComponent,
-    FlightSearchComponent
+    FlightSearchComponent,
+    CityPipe
   ],
   providers: [
     { provide: BASE_URL, useValue: 'http://www.angular.at/api'}
