@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Flight } from '../entities/flight';
+import { Flight } from '../../entities/flight';
 import { Http, URLSearchParams, Headers } from '@angular/http';
 import { FlightService } from './flight.service';
 

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { FlightService } from '../../flight-search/flight.service';
+import { FlightService } from '../../flight-booking/flight-search/flight.service';
 
 @Pipe({
   name: 'city',

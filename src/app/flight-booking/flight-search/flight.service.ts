@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Flight } from '../entities/flight';
+import { Flight } from '../../entities/flight';
 import { Http, Headers, URLSearchParams } from '@angular/http';
-import { BASE_URL } from '../app.tokens';
+import { BASE_URL } from '../../app.tokens';
 
 @Injectable()
 export class FlightService {

@@ -1,3 +1,16 @@
-/**
- * Created by Manfred on 18.07.2017.
- */
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CityPipe } from './pipes/city.pipe';
+@NgModule({
+  imports: [
+    CommonModule
+  ],
+  declarations: [
+    CityPipe
+  ],
+  exports: [
+    CityPipe
+  ]
+})
+export class SharedModule {
+}
