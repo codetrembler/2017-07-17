@@ -5,16 +5,24 @@ import { SharedModule } from '../shared/shared.module';
 import { FlightSearchComponent } from './flight-search/flight-search.component';
 import { FlightCardComponent } from './flight-card/flight-card.component';
 import { ReactiveFlightSearchComponent } from './reactive-flight-search/reactive-flight-search.component';
+import { PassengerSearchComponent } from './passenger-search/passenger-search.component';
+import { RouterModule } from '@angular/router';
+import { FLIGHT_BOOKING_ROUTES } from './flight-booking.routes';
+import { FlightEditComponent } from './flight-edit/flight-edit.component';
 @NgModule({
   imports: [
-    CommonModule, FormsModule, SharedModule,
-    ReactiveFormsModule
-
+    CommonModule,
+    FormsModule,
+    SharedModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(FLIGHT_BOOKING_ROUTES)
   ],
   declarations: [
     ReactiveFlightSearchComponent,
     FlightSearchComponent,
-    FlightCardComponent
+    FlightCardComponent,
+    PassengerSearchComponent,
+    FlightEditComponent
   ],
   exports: [
     ReactiveFlightSearchComponent,
