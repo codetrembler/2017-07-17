@@ -13,7 +13,9 @@ export class FlightService {
     console.debug('Liebsgrüße aus dem Konstruktor!');
   }
 
-  find(from: string, to: string): Observable<Flight[]> {
+  flights: Flight[] = [];
+
+  find(from: string, to: string): void {
     let url = this.baseUrl + '/flight';
 
     let search = new URLSearchParams();
@@ -23,9 +25,17 @@ export class FlightService {
     let headers = new Headers();
     headers.set('Accept', 'application/json');
 
-    return this
-            .http
-            .get(url, { search, headers}) // Response?
-            .map(resp => resp.json());
+    this
+      .http
+      .get(url, { search, headers}) // Response?
+      .map(resp => resp.json())
+      .subscribe(
+        flights => {
+          this.flights = flights;
+        },
+        err => {
+          console.error('Fehler beim Laden', err);
+        }
+      )
   }
 }

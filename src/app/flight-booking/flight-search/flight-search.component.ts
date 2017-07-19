@@ -7,14 +7,18 @@ import { FlightService } from './flight.service';
   selector: 'flight-search',
   templateUrl: './flight-search.component.html',
   styleUrls: ['./flight-search.component.css'],
-  providers: [FlightService]
+  providers: []
 })
 export class FlightSearchComponent {
 
   from: string;
   to: string;
-  flights: Array<Flight> = [];
+  // flights: Array<Flight> = [];
   selectedFlight: Flight;
+
+  get flights(): Array<Flight> {
+    return this.flightService.flights;
+  }
 
   basket: object = {
     "3": true,
@@ -31,18 +35,7 @@ export class FlightSearchComponent {
 
     if (!this.from || !this.to) return;
 
-    this.flightService
-      .find(this.from, this.to)
-      .subscribe(
-        (flights) => {
-          this.flights = flights;
-        },
-        (errResp) => {
-          console.error('Fehler beim Laden', errResp);
-        }
-      );
-
-
+    this.flightService.find(this.from, this.to);
 
   }
 
