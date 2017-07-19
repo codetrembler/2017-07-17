@@ -1,30 +1,24 @@
-<h1>Flight Search!</h1>
+<h1>Reactive Flight Search!</h1>
 
 <div class="row card">
-  <form #f="ngForm">
+  <form [formGroup]="filter">
   <div class="control-group">
     <label>From:</label>
-    <input
-      name="from"
-      [(ngModel)]="from"
-      class="form-control"
-      required
-      city="Graz,Hamburg,Zürich,Frankfurt,Berlin,Bern,Wien,München"
-      minlength="3">
+    <input class="form-control" formControlName="from">
 
-    <div *ngIf="!f?.controls?.from?.valid">
+    <div *ngIf="!filter.controls.from.valid">
       ... Fehler in From ...
       <!--
-      <pre>{{f?.controls?.from?.errors | json}}</pre>
+      <pre>{{filter.controls.from.errors | json}}</pre>
       -->
     </div>
-    <div *ngIf="f?.controls?.from?.hasError('required')">
+    <div *ngIf="filter.controls.from.hasError('required')">
       ... Required ...
     </div>
-    <div *ngIf="f?.controls?.from?.hasError('minlength')">
+    <div *ngIf="filter.controls.from.hasError('minlength')">
       ... MinLength ...
     </div>
-    <div *ngIf="f?.controls?.from?.hasError('city')">
+    <div *ngIf="filter.controls.from.hasError('city')">
       ... MinLength ...
     </div>
 
@@ -32,10 +26,7 @@
 
   <div class="control-group">
     <label>To:</label>
-    <input
-      [(ngModel)]="to"
-      class="form-control"
-      name="to">
+    <input formControlName="to" class="form-control">
   </div>
 
   <div class="control-group">
@@ -47,22 +38,22 @@
 <div class="row">
 <div *ngFor="let f of flights" class="col col-lg-3 col-md-4 col-sm-6 col-xs-12">
   <flight-card
-    [(selected)]="basket[f.id]"
+    [(selected)]="basket[filter.id]"
     [item]="f">
   </flight-card>
 </div>
 </div>
 <!--
-(selectedChange)="basket[f.id] = $event"
+(selectedChange)="basket[filter.id] = $event"
 -->
 <!--
 <div *ngIf="flights.length > 0" class="card">
   <table class="table table-contensed">
     <tr *ngFor="let f of flights" [ngClass]="{ 'active': f === selectedFlight }">
-      <td>{{f.id}}</td>
-      <td>{{f.from | city:'short' }}</td>
-      <td>{{f.to | city:'long' }}</td>
-      <td>{{f.date | date:'dd.MM.yyyy HH:mm'}}</td>
+      <td>{{filter.id}}</td>
+      <td>{{filter.from | city:'short' }}</td>
+      <td>{{filter.to | city:'long' }}</td>
+      <td>{{filter.date | date:'dd.MM.yyyy HH:mm'}}</td>
       <td><a (click)="select(f)">Select</a></td>
     </tr>
   </table>

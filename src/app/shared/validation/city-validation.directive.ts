@@ -2,7 +2,7 @@ import { Directive, Input } from '@angular/core';
 import { AbstractControl, FormGroup, NG_VALIDATORS, Validator } from '@angular/forms';
 
 @Directive({
-  selector: 'input[city]',
+  selector: 'input[city]', // <input ... city="A,B,C" ...>
   providers: [
     {
       provide: NG_VALIDATORS,
