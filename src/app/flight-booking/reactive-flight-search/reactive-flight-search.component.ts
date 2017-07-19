@@ -3,6 +3,10 @@ import { Flight } from '../../entities/flight';
 import { Http, URLSearchParams, Headers } from '@angular/http';
 import { FlightService } from '../flight-search/flight.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  validateCity, validateCityAsync, validateCityWithParams,
+  validateRoundtrips
+} from '../../shared/validation/city.validator';
 
 @Component({
   selector: 'reactive-flight-search',
@@ -15,7 +19,8 @@ export class ReactiveFlightSearchComponent {
   flights: Array<Flight> = [];
   selectedFlight: Flight;
   formsMetadata = [
-
+    { name: 'from', label: 'Airport of Departure', control: 'input' },
+    { name: 'to', label: 'Airport of Destination', control: 'input' }
   ];
 
   filter: FormGroup;
@@ -37,11 +42,18 @@ export class ReactiveFlightSearchComponent {
         'Hamburg',
         [
           Validators.required,
-          Validators.minLength(3)
+          Validators.minLength(3),
+          validateCity,
+          validateCityWithParams(['Graz', 'Hamburg', 'Gotham']),
+        ],
+        [
+          validateCityAsync(flightService)
         ]
       ],
       'to': ['Graz']
     });
+
+    this.filter.validator = validateRoundtrips;
 
     let sub = this.filter.valueChanges.subscribe(formValue => {
       console.debug('form changed', formValue);
@@ -54,6 +66,12 @@ export class ReactiveFlightSearchComponent {
     this.filter.controls['from'].setValue('Graz');
     this.filter.controls['to'].setValue('Hamburg');
 
+
+  }
+
+  fav() {
+    this.filter.controls['from'].setValue('Frankfurt');
+    this.filter.controls['to'].setValue('Wien');
 
   }
 

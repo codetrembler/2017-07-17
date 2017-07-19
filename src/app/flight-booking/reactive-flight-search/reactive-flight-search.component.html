@@ -2,15 +2,31 @@
 
 <div class="row card">
   <form [formGroup]="filter">
+
+    <div *ngIf="!filter.valid">
+      {{ filter.errors | json }}
+    </div>
+
+    <h2>Dynamic Form</h2>
+
+    <div *ngFor="let entry of formsMetadata" class="control-group">
+      <label>{{entry.label}}</label>
+      <input [formControlName]="entry.name" class="form-control">
+    </div>
+
+
+    <h2>Static Form</h2>
+
   <div class="control-group">
     <label>From:</label>
     <input class="form-control" formControlName="from">
 
     <div *ngIf="!filter.controls.from.valid">
       ... Fehler in From ...
-      <!--
+
       <pre>{{filter.controls.from.errors | json}}</pre>
-      -->
+
+
     </div>
     <div *ngIf="filter.controls.from.hasError('required')">
       ... Required ...
@@ -31,6 +47,7 @@
 
   <div class="control-group">
     <button (click)="search()" class="btn btn-default">Search</button>
+    <button (click)="fav()" class="btn btn-default">Fav</button>
   </div>
   </form>
 </div>
